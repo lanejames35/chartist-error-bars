@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<meta charset="utf-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
+	<link rel="stylesheet" href="./src/css/chartist-error-bars.css">
+    <script src="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
+	<script src="./src/script/chartist-error-bars.js"></script>
+  </head>
+  <body>
+	<div class="ct-chart ct-major-eleventh"></div>
+	<script>
+	var data = {
+		// A labels array that can contain any sort of values
+		labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
+		// Our series array that contains series objects or in this case series data arrays
+		series: [
+			[5, 2, 4, 2, 0],
+			[7, 4, 6, 1, null]
+		]
+	};
+		var chart = new Chartist.Bar('.ct-chart', data, { plugins: [ Chartist.plugins.errorBars() ] });	
+	</script>
+	</body>
+</html>
