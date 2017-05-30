@@ -18,6 +18,30 @@
 				<div class="ct-chart ct-major-eleventh"></div>
 			</div>
 		</div>
+		<div class="row wb-prettyify all-pre">
+			<div class="col-xs-12 col-md-8">
+				<h2>View code:</h2>
+				<pre class="prettyprint">
+					<code>
+Chartist.plugins.errorBars = function () {
+	return function errorBars(chart){
+		chart.on('draw', function(data) {
+			if (data.type === 'bar'){
+
+				var lcl = data.y2 + 10;
+				var	ucl = data.y2 - 10;
+
+				if (lcl < data.y1){
+					var errorLine = new Chartist.Svg('line', { x1: [data.x1], y1: [lcl], x2: [data.x2], y2: [ucl] }, 'ct-error');
+					data.element.parent().append(errorLine);
+				}
+			}
+		});
+	}
+};					</code>  
+				</pre>
+			</div>
+		</div>
 	</main>
 	
 	<script>
