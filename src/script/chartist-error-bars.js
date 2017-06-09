@@ -17,7 +17,7 @@
   Chartist.plugins.errorBars = function (options) {
 	    
 	options = Chartist.extend({}, defaultOptions, options);
-	
+		
 	function addErrorBar(data, upper, lower){
 		// Create a SVG line element that draws an error bar at the top of each bar
 		var errorLine = new Chartist.Svg('line', { x1: [data.x1], y1: [lower], x2: [data.x2], y2: [upper] }, 'ct-error');
@@ -54,8 +54,8 @@
 					// Test this implementation with different scenarios
 					// Add a cap to each error bar
 					// Make margin of error variable
-					var lcl = data.y2 + options.confidenceLimit.lower;
-					var	ucl = data.y2 - options.confidenceLimit.upper;
+					var ucl = Chartist.projectLength( data.axisY.axisLength, options.confidenceLimit.upper, data.axisY.bounds );
+					var lcl = Chartist.projectLength( data.axisY.axisLength, options.confidenceLimit.lower, data.axisY.bounds );
 					// Do not allow the error bar to drop below the axis
 					if (lcl < data.y1){
 						addErrorBar(data, ucl, lcl);
