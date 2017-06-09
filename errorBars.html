@@ -32,14 +32,15 @@ Chartist.plugins.errorBars = function () {
 				var lcl = data.y2 + 10;
 				var	ucl = data.y2 - 10;
 
-				if (lcl < data.y1){
+				if (lcl &lt; data.y1){
 					var errorLine = new Chartist.Svg('line', { x1: [data.x1], y1: [lcl], x2: [data.x2], y2: [ucl] }, 'ct-error');
 					data.element.parent().append(errorLine);
 				}
 			}
 		});
 	}
-};					</code>  
+};
+					</code>  
 				</pre>
 			</div>
 		</div>
