@@ -18,9 +18,14 @@
 	    
 	options = Chartist.extend({}, defaultOptions, options);
 	
-	function addErrorBar(data, upper, lower){
-		// Create a SVG line element that draws an error bar at the top of each bar
-		var errorLine = new Chartist.Svg('line', { x1: [data.x1], y1: [lower], x2: [data.x2], y2: [upper] }, 'ct-error');
+	function addErrorBar(data){
+		// Create a SVG line element that draws an error bar at the top of each bar / point
+		var errorLine = new Chartist.Svg('line', { x1: data.hasOwnProperty('x1') ? [data.x1] : [data.x],
+												   y1: [data.lcl],
+												   x2: data.hasOwnProperty('x2') ? [data.x2] : [data.x],
+												   y2: [data.ucl]
+												   },
+												   'ct-error');
 		// With data.element we get the current SVG element - <line> 
 		// We want to apply our new line to the parent element - <g>
 		data.element.parent().append(errorLine);
@@ -32,16 +37,12 @@
 				// When the bar event is triggered from drawing a bar on the chart
 				if (data.type === 'point'){
 					// TODO
-					// Check for values that are zero or undefined
-					// Test this implementation with different scenarios
 					// Add a cap to each error bar
-					// Make margin of error variable
-					var it = makeIterator
-					var lcl = data.y2 + options.confidenceLimit.lower;
-					var	ucl = data.y2 - options.confidenceLimit.upper;
+					data.ucl = data.axisY.chartRect.y1 - Chartist.projectLength( data.axisY.axisLength, options.confidenceLimit.upper[data.seriesIndex][data.index], data.axisY.bounds ); 
+					data.lcl = data.axisY.chartRect.y1 - Chartist.projectLength( data.axisY.axisLength, options.confidenceLimit.lower[data.seriesIndex][data.index], data.axisY.bounds );
 					// Do not allow the error bar to drop below the axis
-					if (lcl < data.y1){
-						addErrorBar(data, ucl, lcl);
+					if (data.lcl <= data.axisY.axisLength){
+						addErrorBar(data);
 					}
 				}
 			});	
@@ -51,20 +52,13 @@
 				// When the bar event is triggered from drawing a bar on the chart
 				if (data.type === 'bar'){
 					// TODO
-					// Check for values that are zero or undefined
-					// Test this implementation with different scenarios
 					// Add a cap to each error bar
-					// Make margin of error variable
-					for(var i=0; i < data.series.length; i++){
-						for(var k=0; k < options.confidenceLimit.upper.length; k++){
-							var ucl = data.chartRect.y1 - Chartist.projectLength( data.axisY.axisLength, options.confidenceLimit.upper, data.axisY.bounds );
-							var lcl = data.chartRect.y1 - Chartist.projectLength( data.axisY.axisLength, options.confidenceLimit.lower, data.axisY.bounds );
-							// Do not allow the error bar to drop below the axis
-							if (lcl <= data.y1){
-								addErrorBar(data, ucl, lcl);
+					data.ucl = data.axisY.chartRect.y1 - Chartist.projectLength( data.axisY.axisLength, options.confidenceLimit.upper[data.seriesIndex][data.index], data.axisY.bounds );
+					data.lcl = data.axisY.chartRect.y1 - Chartist.projectLength( data.axisY.axisLength, options.confidenceLimit.lower[data.seriesIndex][data.index], data.axisY.bounds );
+					// Do not allow the error bar to drop below the axis
+					if (data.lcl <= data.y1){
+						addErrorBar(data);
 
-							}
-						}
 					}
 				}
 			});	
