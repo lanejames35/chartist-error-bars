@@ -55,7 +55,7 @@
 					// Test this implementation with different scenarios
 					// Add a cap to each error bar
 					// Make margin of error variable
-					for(i=0; i < data.series.length; i++){
+					for(var i=0; i < data.series.length; i++){
 						for(var k=0; k < options.confidenceLimit.upper.length; k++){
 							var ucl = data.chartRect.y1 - Chartist.projectLength( data.axisY.axisLength, options.confidenceLimit.upper, data.axisY.bounds );
 							var lcl = data.chartRect.y1 - Chartist.projectLength( data.axisY.axisLength, options.confidenceLimit.lower, data.axisY.bounds );
