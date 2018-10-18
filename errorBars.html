@@ -56,7 +56,22 @@ Chartist.plugins.errorBars = function () {
 			[7, 4, 6, 1, null]
 		]
 	};
-		var chart = new Chartist.Bar('.ct-chart', data, { plugins: [ Chartist.plugins.errorBars() ] });	
+		var chart = new Chartist.Line('.ct-chart', data, { 
+			plugins: [ 
+				Chartist.plugins.errorBars({
+					confidenceLimit: { 
+						upper: [
+							[6,3,5,3,0],
+							[8,5,7,1.5,0]
+						],
+						lower: [
+							[4,1,3,1,0],
+							[6,3,5,0.5,0]
+						]
+					}
+				})
+			]
+		});	
 	</script>
 	</body>
 </html>
