@@ -53,12 +53,16 @@ Chartist.plugins.errorBars = function () {
 		// Our series array that contains series objects or in this case series data arrays
 		series: [
 			[5, 2, 4, 2, 0],
-			[7, 4, 6, 1, null]
+			[7, 4, 6, 1, null}
 		]
 	};
-		var chart = new Chartist.Line('.ct-chart', data, { 
+		var chart = new Chartist.Bar('.ct-chart', data, {
+			axisX:{ onlyInteger: true },
+			high: 10,
+		    horizontalBars: true,
 			plugins: [ 
 				Chartist.plugins.errorBars({
+          horizontal: true,
 					confidenceLimit: { 
 						upper: [
 							[6,3,5,3,0],
