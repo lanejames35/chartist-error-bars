@@ -1,0 +1,27 @@
+{
+  "name": "chartist-error-bars",
+  "version": "1.0.0",
+  "description": "A Chartist plugin to add error bars to charts",
+  "main": "src/script/chartist-error-bars.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "git+https://github.com/lanejames35/chartist-error-bars.git",
+  "keywords": [
+    "chartist",
+    "error",
+    "bars",
+    "confidence",
+    "interval"
+  ],
+  "author": "James Lane",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lanejames35/chartist-error-bars/issues"
+  },
+  "homepage": "https://github.com/lanejames35/chartist-error-bars#readme",
+  "private": false,
+  "dependencies": {
+    "chartist": "^0.11.0"
+  }
+}
