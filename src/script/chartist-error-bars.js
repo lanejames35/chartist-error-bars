@@ -22,15 +22,6 @@
       var errorLine = new Chartist.Svg('line', error, 'ct-error');
       data.element.parent().append(errorLine);
     }	
-    function hError(data){
-      chart.on('draw', function(data) {
-        // When the bar event is triggered from drawing a bar on the chart
-        if (data.type === 'bar'){
-          // TODO
-          // Add a cap to each error bar
-        }
-      });	    
-    }
     return function errorBars(chart){
       if(chart instanceof Chartist.Line){
         chart.on('draw', function(data) {
@@ -61,16 +52,13 @@
             if (!options.horizontal){
               data.ucl = data.axisY.chartRect.y1 - Chartist.projectLength( data.axisY.axisLength, options.confidenceLimit.upper[data.seriesIndex][data.index], data.axisY.bounds ); 
               data.lcl = data.axisY.chartRect.y1 - Chartist.projectLength( data.axisY.axisLength, options.confidenceLimit.lower[data.seriesIndex][data.index], data.axisY.bounds );
-              // Do not allow the error bar to drop below the axis
-              if (data.lcl <= data.axisY.axisLength){
-                var errData = {
-                  x1: data.hasOwnProperty('x1') ? [data.x1] : [data.x],
-                  y1: [data.lcl],
-                  x2: data.hasOwnProperty('x2') ? [data.x2] : [data.x],
-                  y2: [data.ucl]
-                };
-                addErrorBar(data, errData);
-              }
+              var errData = {
+                x1: data.hasOwnProperty('x1') ? [data.x1] : [data.x],
+                y1: [data.lcl],
+                x2: data.hasOwnProperty('x2') ? [data.x2] : [data.x],
+                y2: [data.ucl]
+              };
+              addErrorBar(data, errData);
             }
             else{
               data.ucl = data.axisX.chartRect.x1 + Chartist.projectLength( data.axisX.axisLength, options.confidenceLimit.upper[data.seriesIndex][data.index], data.axisX.bounds );
