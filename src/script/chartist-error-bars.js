@@ -31,16 +31,13 @@
             // Add a cap to each error bar
             data.ucl = data.axisY.chartRect.y1 - Chartist.projectLength( data.axisY.axisLength, options.confidenceLimit.upper[data.seriesIndex][data.index], data.axisY.bounds ); 
             data.lcl = data.axisY.chartRect.y1 - Chartist.projectLength( data.axisY.axisLength, options.confidenceLimit.lower[data.seriesIndex][data.index], data.axisY.bounds );
-            // Do not allow the error bar to drop below the axis
-            if (data.lcl <= data.axisY.axisLength){
-              var errData = {
-                x1: data.hasOwnProperty('x1') ? [data.x1] : [data.x],
-                y1: [data.lcl],
-                x2: data.hasOwnProperty('x2') ? [data.x2] : [data.x],
-                y2: [data.ucl]
-              };
-              addErrorBar(data, errData);
-            }
+            var errData = {
+              x1: data.hasOwnProperty('x1') ? [data.x1] : [data.x],
+              y1: [data.lcl],
+              x2: data.hasOwnProperty('x2') ? [data.x2] : [data.x],
+              y2: [data.ucl]
+            };
+            addErrorBar(data, errData);
           }
         });	
       }
@@ -64,15 +61,13 @@
               data.ucl = data.axisX.chartRect.x1 + Chartist.projectLength( data.axisX.axisLength, options.confidenceLimit.upper[data.seriesIndex][data.index], data.axisX.bounds );
               data.lcl = data.axisX.chartRect.x1 + Chartist.projectLength( data.axisX.axisLength, options.confidenceLimit.lower[data.seriesIndex][data.index], data.axisX.bounds );
               // Do not allow the error bar to drop below the axis
-              if (data.lcl <= data.axisX.axisLength){
-                var errData = {
-                  x1: [data.lcl],
-                  y1: data.hasOwnProperty('y1') ? [data.y1] : [data.y],
-                  x2: [data.ucl],
-                  y2: data.hasOwnProperty('y2') ? [data.y2] : [data.y]
-                };          
-                addErrorBar(data, errData);
-              }
+              var errData = {
+                x1: [data.lcl],
+                y1: data.hasOwnProperty('y1') ? [data.y1] : [data.y],
+                x2: [data.ucl],
+                y2: data.hasOwnProperty('y2') ? [data.y2] : [data.y]
+              };          
+              addErrorBar(data, errData);
             }
           }
         });	
