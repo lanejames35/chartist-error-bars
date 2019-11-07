@@ -1,6 +1,6 @@
 {
   "name": "chartist-error-bars",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "A Chartist plugin to add error bars to charts",
   "main": "dist/chartist-error-bars.js",
   "scripts": {
