@@ -7,6 +7,7 @@
   'use strict';
   
 	var defaultOptions = {
+    errorClass: 'ct-error',
     orientation: 'horizontal',
 		confidenceLimit: {
 			upper: [],
@@ -47,7 +48,7 @@
     options = Chartist.extend({}, defaultOptions, options);
 
     function addErrorBar(lineLength, data){
-      var errBar = new Chartist.Svg('line', lineLength, 'ct-error');
+      var errBar = new Chartist.Svg('line', lineLength, options.errorClass);
       data.element.parent().append(errBar);
     }	  
     

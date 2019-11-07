@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="./src/css/chartist-error-bars.css">
     <!--WET-BOEW-->
     <!--Licence: -->
-    <script src="https://cdn.jsdelivr.net/npm/chartist/dist/chartist.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartist/dist/chartist.js"></script>
     <script src="./src/script/chartist-error-bars.js"></script>
   </head>
   <body>
@@ -61,6 +61,7 @@ Chartist.plugins.errorBars = function (options) {
 		  horizontalBars: true,
 			plugins: [ 
 				Chartist.plugins.errorBars({
+          errorClass: 'ct-error',
           orientation: 'horizontal',
 					confidenceLimit: { 
 						upper: [
