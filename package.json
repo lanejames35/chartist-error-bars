@@ -2,7 +2,7 @@
   "name": "chartist-error-bars",
   "version": "0.0.5",
   "description": "A Chartist plugin to add error bars to charts",
-  "main": "src/script/chartist-error-bars.js",
+  "main": "dist/chartist-error-bars.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "gulp build"
