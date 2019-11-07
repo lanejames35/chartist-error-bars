@@ -4,7 +4,8 @@
   "description": "A Chartist plugin to add error bars to charts",
   "main": "src/script/chartist-error-bars.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "gulp build"
   },
   "repository": "git+https://github.com/lanejames35/chartist-error-bars.git",
   "keywords": [
@@ -25,6 +26,9 @@
     "chartist": "^0.11.4"
   },
   "devDependencies": {
-    "gulp": "^4.0.2"
+    "gulp": "^4.0.2",
+    "gulp-rename": "^1.4.0",
+    "gulp-uglify": "^3.0.2",
+    "gulp-uglifycss": "^1.1.0"
   }
 }
