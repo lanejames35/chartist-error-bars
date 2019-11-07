@@ -1,15 +1,13 @@
 <!DOCTYPE html>
 <html>
   <head>
-	<meta charset="utf-8">
+    <meta charset="utf-8">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
-	<link rel="stylesheet" href="./src/css/chartist-error-bars.css">
-	<!--WET-BOEW-->
-	<!--Licence: -->
-	<link rel="stylesheet" href="https://cdn.rawgit.com/lanejames35/lanejames35.github.io/master/css/theme.min.css">
-    <script src="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
-	<script src="./src/script/chartist-error-bars.js"></script>
-	<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+    <link rel="stylesheet" href="./src/css/chartist-error-bars.css">
+    <!--WET-BOEW-->
+    <!--Licence: -->
+    <script src="https://cdn.jsdelivr.net/npm/chartist/dist/chartist.js"></script>
+    <script src="./src/script/chartist-error-bars.js"></script>
   </head>
   <body>
 	<main class="container">
@@ -22,26 +20,27 @@
 		<div class="row wb-prettyify all-pre">
 			<div class="col-xs-12 col-md-8">
 				<h2>View code:</h2>
-				<pre class="prettyprint">
 					<code>
-Chartist.plugins.errorBars = function () {
-	return function errorBars(chart){
-		chart.on('draw', function(data) {
-			if (data.type === 'bar'){
+Chartist.plugins.errorBars = function (options) { 
+  options = Chartist.extend({}, defaultOptions, options);
 
-				var lcl = data.y2 + 10;
-				var	ucl = data.y2 - 10;
-
-				if (lcl &lt; data.y1){
-					var errorLine = new Chartist.Svg('line', { x1: [data.x1], y1: [lcl], x2: [data.x2], y2: [ucl] }, 'ct-error');
-					data.element.parent().append(errorLine);
-				}
-			}
-		});
-	}
+  function addErrorBar(lineLength, data){
+    var errBar = new Chartist.Svg('line', lineLength, 'ct-error');
+    data.element.parent().append(errBar);
+  }	  
+  
+  return function errorBars(chart){
+    if( chart instanceof Chartist.Bar || chart instanceof Chartist.Line ){
+      chart.on('draw', function(data) {
+        var lengthCalculator = lineLengthCalculation[data.type] && lineLengthCalculation[data.type][options.orientation] || lineLengthCalculation[data.type];
+        if(lengthCalculator){
+          addErrorBar( lengthCalculator(data, options), data );
+        }
+      });
+    }
+  }
 };
-					</code>  
-				</pre>
+        </code>  
 			</div>
 		</div>
 	</main>
@@ -59,10 +58,11 @@ Chartist.plugins.errorBars = function () {
 		var chart = new Chartist.Bar('.ct-chart', data, {
 			axisX:{ onlyInteger: true },
 			high: 10,
-		    horizontalBars: true,
+		  horizontalBars: true,
 			plugins: [ 
 				Chartist.plugins.errorBars({
-          horizontal: true,
+          errorClass: 'ct-error',
+          orientation: 'horizontal',
 					confidenceLimit: { 
 						upper: [
 							[6,3,5,3,0],
