@@ -1,4 +1,4 @@
-# Error Bar plugin Chartist.js
+# Error Bar plugin for Chartist.js
 A simple plugin that draws an error bar on top of a Chartist.js chart.
 
 This plugin works with both bar charts (`Chartist.Bar`) and line charts (`Chartist.Line`).
